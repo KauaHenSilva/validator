@@ -58,29 +58,66 @@ public class ServiceProxy extends AbstractProxy {
 
 			if (targetIsSource)
 				contentToProcess = registerTimeWhenGoOut(contentToProcess);
-			try {
-				if (targetIsSource){
-					sendMessageToDestiny(contentToProcess+ "\n");
-				}
-				else{
-					while (true){
-						if (isDestinyFree(connectionDestinySocket)){
-							sendMessageToDestiny(contentToProcess+ "\n");
-							break;
-						}
-						try {
-							Thread.sleep(100);
-//							System.out.println("tentando enviar");
-						} catch (InterruptedException e) {
-							throw new RuntimeException(e);
-						}
-					}
-				}
-			} catch (IOException e) {throw new RuntimeException(e);} catch (ClassNotFoundException e) {
-				throw new RuntimeException(e);
-			}
+			sendCurrentContentToDestiny();
 
 			contentToProcess = null;
+		}
+	}
+
+	private void sendCurrentContentToDestiny() {
+		boolean sent = false;
+		while (!sent && !interrupt) {
+			try {
+				ensureDestinyConnection();
+				if (targetIsSource) {
+					sendMessageToDestiny(contentToProcess + "\n");
+					sent = true;
+				} else if (isDestinyFree(connectionDestinySocket)) {
+					sendMessageToDestiny(contentToProcess + "\n");
+					sent = true;
+				} else {
+					Thread.sleep(100);
+				}
+			} catch (IOException | ClassNotFoundException e) {
+				reconnectToDestiny();
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+				throw new RuntimeException(e);
+			}
+		}
+	}
+
+	private void ensureDestinyConnection() throws IOException {
+		if (connectionDestinySocket == null || connectionDestinySocket.isClosed()) {
+			createConnectionWithDestiny();
+		}
+	}
+
+	private void reconnectToDestiny() {
+		closeDestinyConnection();
+		while (!interrupt) {
+			try {
+				createConnectionWithDestiny();
+				return;
+			} catch (IOException e) {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException interruptedException) {
+					Thread.currentThread().interrupt();
+					throw new RuntimeException(interruptedException);
+				}
+			}
+		}
+	}
+
+	private void closeDestinyConnection() {
+		if (connectionDestinySocket == null) {
+			return;
+		}
+
+		try {
+			connectionDestinySocket.close();
+		} catch (IOException ignored) {
 		}
 	}
 
@@ -89,7 +126,7 @@ public class ServiceProxy extends AbstractProxy {
 	}
 
 
-	protected void createConnectionWithDestiny() throws IOException {
+	protected synchronized void createConnectionWithDestiny() throws IOException {
 		connectionDestinySocket = new Socket(targetAddress.getIp(),targetAddress.getPort());
 	}
 

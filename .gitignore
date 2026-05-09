@@ -61,3 +61,5 @@ docker/source/log.txt
 docker/source/graphs/
 
 lib/mercuryauto.jar
+docker/distributed/source/log.txt
+docker/distributed/source/graphs/
