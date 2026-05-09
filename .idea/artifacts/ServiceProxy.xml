@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ServiceProxy">
+    <output-path>$PROJECT_DIR$/out/artifacts/ServiceProxy</output-path>
+    <root id="archive" name="pasid-validator.jar">
+      <element id="module-output" name="pasid-validator" />
+    </root>
+  </artifact>
+</component>

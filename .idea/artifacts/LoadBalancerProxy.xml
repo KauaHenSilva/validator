@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="LoadBalancerProxy">
+    <output-path>$PROJECT_DIR$/out/artifacts/LoadBalancerProxy</output-path>
+    <root id="archive" name="pasid-validator.jar">
+      <element id="module-output" name="pasid-validator" />
+    </root>
+  </artifact>
+</component>

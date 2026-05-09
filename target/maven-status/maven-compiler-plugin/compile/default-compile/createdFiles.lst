@@ -1,0 +1,14 @@
+tests/model/MercuryCall_Services.class
+domain/AbstractProxy$ConnectionEstablishmentDestinyThread.class
+domain/AbstractProxy$ReceiverThread.class
+domain/LoadBalancerProxy.class
+domain/AbstractProxy$ConnectionEstablishmentOriginThread.class
+domain/Source.class
+domain/utils/Utils.class
+domain/utils/VariatedParameter.class
+domain/utils/TTest.class
+domain/ServiceProxy.class
+domain/AbstractProxy.class
+domain/TargetAddress.class
+tests/validation/LocalTest_Services.class
+domain/utils/LinePlot.class

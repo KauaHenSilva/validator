@@ -1,0 +1,13 @@
+services:
+  loadbalancer2:
+    build: .
+    image: pasid-validator:loadbalancer2
+    network_mode: host
+    working_dir: /app/docker/distributed/loadbalancer2
+    command:
+      - java
+      - -cp
+      - /app/target/classes:/app/lib/*
+      - domain.LoadBalancerProxy
+      - /app/docker/distributed/loadbalancer2/loadbalancer.properties
+    restart: unless-stopped

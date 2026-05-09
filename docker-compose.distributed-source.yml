@@ -1,0 +1,15 @@
+services:
+  source:
+    build: .
+    image: pasid-validator:distributed-source
+    working_dir: /app/docker/source
+    command:
+      - java
+      - -cp
+      - /app/target/classes:/app/lib/*
+      - domain.Source
+      - /app/docker/source
+    volumes:
+      - ./docker/distributed/source:/app/docker/source
+    ports:
+      - "1000:1000"

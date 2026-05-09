@@ -1,0 +1,48 @@
+services:
+  loadbalancer2:
+    build: .
+    image: pasid-validator:local
+    working_dir: /app/docker/loadbalancer2
+    command:
+      - java
+      - -cp
+      - /app/target/classes:/app/lib/*
+      - domain.LoadBalancerProxy
+      - /app/docker/loadbalancer2/loadbalancer.properties
+    volumes:
+      - ./docker/loadbalancer2:/app/docker/loadbalancer2
+    expose:
+      - "3000"
+
+  loadbalancer1:
+    image: pasid-validator:local
+    working_dir: /app/docker/loadbalancer1
+    command:
+      - java
+      - -cp
+      - /app/target/classes:/app/lib/*
+      - domain.LoadBalancerProxy
+      - /app/docker/loadbalancer1/loadbalancer.properties
+    volumes:
+      - ./docker/loadbalancer1:/app/docker/loadbalancer1
+    depends_on:
+      - loadbalancer2
+    expose:
+      - "2000"
+
+  source:
+    image: pasid-validator:local
+    working_dir: /app/docker/source
+    command:
+      - java
+      - -cp
+      - /app/target/classes:/app/lib/*
+      - domain.Source
+      - /app/docker/source
+    volumes:
+      - ./docker/source:/app/docker/source
+    depends_on:
+      - loadbalancer1
+      - loadbalancer2
+    expose:
+      - "1000"
