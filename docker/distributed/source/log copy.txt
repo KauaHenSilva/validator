@@ -23,3 +23,11 @@ T2 = 256.0
 T3 = 241.0
 T4 = 88.33333333333333
 T5 = 2002.6666666666667
+
+source-1  | The times to feed the models transitions are the following:
+source-1  | T1 = 1399.6666666666667
+source-1  | T2 = 1174.3333333333333
+source-1  | T3 = 653.6666666666666
+source-1  | T4 = 103.33333333333333
+source-1  | T5 = 2001.3333333333333
+source-1 exited with code 0
