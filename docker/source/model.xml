@@ -1,5 +1,5 @@
 <com.local.entities.ProjectDesdac>
-  <file class="sun.awt.shell.DefaultShellFolder" resolves-to="file">/home/kauahen/Projetos/kaua/Topicos_Redes/Trabalho_3_topicos_redes/validator/docker/distributed/model.xml</file>
+  <file class="sun.awt.shell.DefaultShellFolder" resolves-to="file">/home/kauahen/Projetos/kaua/Topicos_Redes/Trabalho_3_topicos_redes/validator/src/tests/model/model.xml</file>
   <graphChanged>true</graphChanged>
   <name>model</name>
   <mercuryVersion>5.0.1</mercuryVersion>
@@ -387,7 +387,7 @@
                     <entry>
                       <string>Value</string>
                       <org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
-                        <value>1343.0</value>
+                        <value>92.66666666666667</value>
                       </org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
                     </entry>
                   </map>
@@ -448,7 +448,7 @@
                     <entry>
                       <string>Value</string>
                       <org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
-                        <value>256.0</value>
+                        <value>94.33333333333333</value>
                       </org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
                     </entry>
                   </map>
@@ -509,7 +509,7 @@
                     <entry>
                       <string>Value</string>
                       <org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
-                        <value>241.0</value>
+                        <value>180.66666666666666</value>
                       </org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
                     </entry>
                   </map>
@@ -570,7 +570,7 @@
                     <entry>
                       <string>Value</string>
                       <org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
-                        <value>88.33333333333333</value>
+                        <value>96.0</value>
                       </org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
                     </entry>
                   </map>
@@ -619,7 +619,7 @@
                     <entry>
                       <string>Value</string>
                       <org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
-                        <value>2002.6666666666667</value>
+                        <value>1999.3333333333333</value>
                       </org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
                     </entry>
                   </map>

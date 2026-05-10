@@ -90,7 +90,7 @@ public class LinePlot {
         }
 
         // Define o caminho para salvar o gr�fico
-        String graphPath = xmlPath + graphDirName;
+        String graphPath = xmlPath + (xmlPath.endsWith(File.separator) ? "" : File.separator) + graphDirName;
 
         // Verifica e cria o diret�rio, se necess�rio
         File directory = new File(graphPath);

@@ -9,6 +9,7 @@ services:
       - /app/target/classes:/app/lib/*
       - domain.LoadBalancerProxy
       - /app/docker/loadbalancer2/loadbalancer.properties
+    restart: "no"
     volumes:
       - ./docker/loadbalancer2:/app/docker/loadbalancer2
     expose:
@@ -23,6 +24,7 @@ services:
       - /app/target/classes:/app/lib/*
       - domain.LoadBalancerProxy
       - /app/docker/loadbalancer1/loadbalancer.properties
+    restart: "no"
     volumes:
       - ./docker/loadbalancer1:/app/docker/loadbalancer1
     depends_on:
@@ -38,7 +40,8 @@ services:
       - -cp
       - /app/target/classes:/app/lib/*
       - domain.Source
-      - /app/docker/source
+      - /app/docker/source/
+    restart: "no"
     volumes:
       - ./docker/source:/app/docker/source
     depends_on:

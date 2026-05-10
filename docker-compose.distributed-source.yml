@@ -8,7 +8,8 @@ services:
       - -cp
       - /app/target/classes:/app/lib/*
       - domain.Source
-      - /app/docker/source
+      - /app/docker/source/
+    restart: "no"
     volumes:
       - ./docker/distributed/source:/app/docker/source
     ports:
