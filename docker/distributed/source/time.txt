@@ -1,0 +1,3 @@
+variatingServices.qtdServices=1,2,3,4,5
+mrtsFromModel=400327.83,195686.35,130058.15,97627.98,78290.86
+sdvsFromModel=2291.45,1165.84,775.63,582.65,467.52

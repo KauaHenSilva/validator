@@ -27,7 +27,7 @@ public class MercuryCall_Services {
                 "AD",
                 new Double[]{100.0},
                 "C",
-                new Double[]{1.0,2.0,3.0,4.0},
+                new Double[]{1.0,2.0,3.0,4.0,5.0},
                 "graphs_services"
         );
 

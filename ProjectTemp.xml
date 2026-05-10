@@ -387,7 +387,7 @@
                     <entry>
                       <string>Value</string>
                       <org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
-                        <value>1399.6666666666667</value>
+                        <value>1090.0</value>
                       </org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
                     </entry>
                   </map>
@@ -448,7 +448,7 @@
                     <entry>
                       <string>Value</string>
                       <org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
-                        <value>1174.3333333333333</value>
+                        <value>193.0</value>
                       </org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
                     </entry>
                   </map>
@@ -509,7 +509,7 @@
                     <entry>
                       <string>Value</string>
                       <org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
-                        <value>653.6666666666666</value>
+                        <value>191.33333333333334</value>
                       </org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
                     </entry>
                   </map>
@@ -570,7 +570,7 @@
                     <entry>
                       <string>Value</string>
                       <org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
-                        <value>103.33333333333333</value>
+                        <value>92.0</value>
                       </org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
                     </entry>
                   </map>
@@ -619,7 +619,7 @@
                     <entry>
                       <string>Value</string>
                       <org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
-                        <value>2001.3333333333333</value>
+                        <value>2002.3333333333333</value>
                       </org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
                     </entry>
                   </map>
@@ -1020,7 +1020,7 @@
               <org.modcs.tools.spn.model.Definition>
                 <name>C</name>
                 <type>INTEGER</type>
-                <value>4.0</value>
+                <value>5.0</value>
                 <position class="java.awt.geom.Point2D$Double">
                   <x>8.366666666666667</x>
                   <y>0.5266666666666666</y>
