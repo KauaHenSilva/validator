@@ -51,10 +51,13 @@ public abstract class AbstractProxy extends Thread {
             super.run();
             try {
                 localSocket = new ServerSocket(localPort);
-                while (true) {
+                while (!Thread.currentThread().isInterrupted() && !localSocket.isClosed()) {
                     new ReceiverThread(localSocket.accept()).start();
                 }
             } catch (IOException e) {
+                if (localSocket != null && localSocket.isClosed()) {
+                    return;
+                }
                 throw new RuntimeException(e);
             }
         }

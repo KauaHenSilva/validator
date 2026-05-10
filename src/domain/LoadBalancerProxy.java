@@ -134,10 +134,21 @@ public class LoadBalancerProxy extends AbstractProxy {
 
 
 	@Override
-	public void createConnectionWithDestiny() throws IOException {
+	public synchronized void createConnectionWithDestiny() throws IOException {
+		closeDestinyConnections();
 		for (TargetAddress targetAddress: serviceAddresses) {
 			connectionDestinySockets.add(new Socket(targetAddress.getIp(),targetAddress.getPort()));
 		}
+	}
+
+	private void closeDestinyConnections() {
+		for (Socket socket : connectionDestinySockets) {
+			try {
+				socket.close();
+			} catch (IOException ignored) {
+			}
+		}
+		connectionDestinySockets.clear();
 	}
 
 	@Override
@@ -158,22 +169,34 @@ public class LoadBalancerProxy extends AbstractProxy {
 
 					boolean notSentYet = true;
 					while (notSentYet) {
-						for (Socket socket : connectionDestinySockets) {
-							if (isDestinyFree(socket)) {
-								msg = queue.remove(0);
-								sendMessageToDestiny(msg, socket);
-								notSentYet = false;
-								break;
+						List<Socket> socketsSnapshot;
+						synchronized (this) {
+							socketsSnapshot = new ArrayList<>(connectionDestinySockets);
+						}
+						if (socketsSnapshot.isEmpty()) {
+							Thread.sleep(100);
+							continue;
+						}
+						for (Socket socket : socketsSnapshot) {
+							try {
+								if (!socket.isClosed() && isDestinyFree(socket)) {
+									msg = queue.remove(0);
+									sendMessageToDestiny(msg, socket);
+									notSentYet = false;
+									break;
+								}
+							} catch (IOException | ClassNotFoundException ignored) {
 							}
+						}
+						if (notSentYet) {
+							Thread.sleep(10);
 						}
 					}
 
 				}
 			}
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-		catch (ClassNotFoundException e) {
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new RuntimeException(e);
 		}
 	}
@@ -226,6 +249,7 @@ public class LoadBalancerProxy extends AbstractProxy {
 	}
 	private synchronized void changeServiceTargetsOfThisServer(String receivedMessage, Socket socket) {
 		String[] parts = receivedMessage.split(";");
+		closeDestinyConnections();
 		// Clear existing services and stop them
 		Iterator<ServiceProxy> iterator = services.iterator();
 		while (iterator.hasNext()) {

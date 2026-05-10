@@ -47,6 +47,7 @@ public class Source extends AbstractProxy {
     List<Double> experimentError = new ArrayList<>();
 
     private List<Boolean> cyclesCompleted = new ArrayList<>();
+    private volatile int currentValidationCycle = -1;
 
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private ScheduledFuture<?> timeoutFuture;
@@ -271,6 +272,7 @@ public class Source extends AbstractProxy {
         int cycle = 0;
         for (Integer qts : qtdServices) {
 
+            currentValidationCycle = cycle;
             sourceCurrentIndexMessage = 1;
             consideredMessages.clear();
 
@@ -366,7 +368,7 @@ public class Source extends AbstractProxy {
         if (isDestinyFree(connectionDestinySocket)) {
             sendMessageToDestiny(msg);
         } else {
-            System.err.print("DROPPED IN SOURCE " + msg);
+            log("DROPPED IN SOURCE " + msg);
             droppCount++;
         }
         try {
@@ -471,15 +473,22 @@ public class Source extends AbstractProxy {
         }
     }
 
-    private void executeSecondStageOfValidation(String receivedMessage) {
-        consideredMessages.add(receivedMessage);
-
+    private synchronized void executeSecondStageOfValidation(String receivedMessage) {
         int index = Integer.parseInt(receivedMessage.split(";")[1]);
         int currentCycle = Integer.parseInt(receivedMessage.split(";")[0]);
 
-        if (!cyclesCompleted.get(currentCycle)) {
-            log(receivedMessage);
-            log("Number of considered messages: " + consideredMessages.size() + " of " + maxConsideredMessagesExpected);
+        if (currentCycle != currentValidationCycle || cyclesCompleted.get(currentCycle)) {
+            log("Ignoring late message from cycle " + currentCycle + ": " + receivedMessage);
+            return;
+        }
+
+        consideredMessages.add(receivedMessage);
+        log(receivedMessage);
+        log("Number of considered messages: " + consideredMessages.size() + " of " + maxConsideredMessagesExpected);
+
+        if (consideredMessages.size() >= maxConsideredMessagesExpected) {
+            completeCycle(currentCycle);
+            return;
         }
 
         // Cancelar o temporizador se ele estiver em execução
@@ -527,6 +536,38 @@ public class Source extends AbstractProxy {
 
         // Resetar o estado do temporizador
         isTimeoutTriggered = false;
+    }
+
+    private synchronized void completeCycle(int currentCycle) {
+        if (cyclesCompleted.get(currentCycle)) {
+            return;
+        }
+
+        partialRegistration();
+        cyclesCompleted.set(currentCycle, true);
+
+        if (allCyclesCompleted()) {
+            allCyclesCompleted = true;
+            log("All cycles completed.");
+
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            String xPrintedName;
+            try {
+                List<? extends  Number> xData;
+                xData = qtdServices;
+                xPrintedName = "Number of Services";
+
+                LinePlot.generateGraph(true, xPrintedName, "MRT", "ms", "Model", "Experiment", xPrintedName+"_"+System.currentTimeMillis(), jsonPath, "graphs", xData, mrtsFromModel, sdvsFromModel, experimentData, experimentError);
+                System.exit(0);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
 

@@ -387,7 +387,7 @@
                     <entry>
                       <string>Value</string>
                       <org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
-                        <value>1090.0</value>
+                        <value>180.66</value>
                       </org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
                     </entry>
                   </map>
@@ -448,7 +448,7 @@
                     <entry>
                       <string>Value</string>
                       <org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
-                        <value>193.0</value>
+                        <value>168.6</value>
                       </org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
                     </entry>
                   </map>
@@ -509,7 +509,7 @@
                     <entry>
                       <string>Value</string>
                       <org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
-                        <value>191.33333333333334</value>
+                        <value>257.6</value>
                       </org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
                     </entry>
                   </map>
@@ -570,7 +570,7 @@
                     <entry>
                       <string>Value</string>
                       <org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
-                        <value>92.0</value>
+                        <value>140.0</value>
                       </org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
                     </entry>
                   </map>
@@ -619,7 +619,7 @@
                     <entry>
                       <string>Value</string>
                       <org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
-                        <value>2002.3333333333333</value>
+                        <value>2006.6</value>
                       </org.modcs.tools.spn.simulator.randomvariates.DefaulRandomParameterProvider>
                     </entry>
                   </map>

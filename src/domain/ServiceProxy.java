@@ -122,7 +122,14 @@ public class ServiceProxy extends AbstractProxy {
 	}
 
 	public void stopService() {
-			this.interrupt = true;
+		this.interrupt = true;
+		closeDestinyConnection();
+		try {
+			if (localSocket != null && !localSocket.isClosed()) {
+				localSocket.close();
+			}
+		} catch (IOException ignored) {
+		}
 	}
 
 
@@ -135,11 +142,11 @@ public class ServiceProxy extends AbstractProxy {
 		System.err.println(proxyName + " enabled to receive messages.");
 
 		DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-		while (true) {
+		while (!interrupt) {
 			String receivedMessage = dataInputStream.readLine();
 
 			if (receivedMessage == null) {
-				continue; // Ignora mensagens nulas
+				break;
 			}
 
 			if (receivedMessage.equals("ping")) {
